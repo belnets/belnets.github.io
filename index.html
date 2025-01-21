@@ -1,1 +1,574 @@
-<h1>Hello world!</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Consortium of Research Groups</title>
+
+  <style>
+    /* ----- RESET SOME DEFAULTS ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+
+    /* ----- HEADER (TITLE + NAV) WITH BACKGROUND IMAGE ----- */
+    header {
+      position: relative;
+      background: url("fig3.webp") no-repeat center center;
+      background-size: cover;
+      color: #fff;
+      padding: 2rem 1rem;
+      text-align: center;
+      overflow: hidden; /* So overlay doesn't overflow outside the header */
+    }
+
+    /* Optional overlay to darken/lighten the header background */
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3); /* Adjust alpha for desired darkness */
+      z-index: 1;
+    }
+
+    header h1,
+    header nav {
+      position: relative; /* So they're above the overlay */
+      z-index: 2;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff; /* White text for visibility on darker background */
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    nav a.active {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* ----- MAIN CONTENT: TABBED SECTIONS ----- */
+    .tab-content {
+      display: none; /* Hide all sections by default */
+      padding: 2rem;
+      max-width: 800px;
+      margin: 2rem auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .active-content {
+      display: block; /* Show active tab content */
+    }
+
+    /* ----- INDEX TAB: LOGOS IN ROWS ----- */
+    .logo-row {
+      display: flex;
+      justify-content: center; 
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .logo-placeholder {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #ddd;
+      border-radius: 4px;
+      font-weight: bold;
+      color: #555;
+      text-align: center;
+    }
+
+    /* ----- MEMBERS TAB: CARD-STYLE RESEARCH GROUPS ----- */
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .member-card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .member-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+    }
+
+    .member-card h3 {
+      margin: 0.75rem 0 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .member-card p {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .learn-more {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: #0d6efd;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .learn-more:hover {
+      background-color: #094bcc;
+    }
+
+    /* ----- EVENTS TAB: SCIENTIFIC & EDUCATIONAL EVENTS ----- */
+    .event-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .event-category {
+      flex: 1 1 300px;
+    }
+
+    .event-category h3 {
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+      color: #333;
+    }
+
+    .event-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .event-item {
+      display: flex;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .event-date {
+      background-color: #0d6efd;
+      color: #fff;
+      padding: 0.75rem 1rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .event-info {
+      padding: 0.75rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+    }
+
+    .event-info h4 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .event-info p {
+      margin: 0.5rem 0 1rem;
+      color: #555;
+      line-height: 1.4;
+    }
+
+    .event-link {
+      color: #0d6efd;
+      font-weight: bold;
+      text-decoration: none;
+      align-self: flex-start;
+    }
+
+    .event-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ----- PUBLICATIONS TAB: LIST OF PUBLICATIONS ----- */
+    .publication-list {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .publication {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .publication-title {
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .publication-authors {
+      font-style: italic;
+      color: #666;
+      margin: 0 0 0.25rem;
+    }
+
+    .publication-journal {
+      color: #444;
+      margin: 0 0 0.75rem;
+    }
+
+    .publication-link {
+      display: inline-block;
+      text-decoration: none;
+      color: #0d6efd;
+      font-weight: bold;
+    }
+
+    .publication-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ----- RESPONSIVE DESIGN ----- */
+    @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      nav a {
+        display: inline-block;
+        text-align: center;
+        width: 100%;
+      }
+
+      .event-categories {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER (TITLE + NAV) -->
+  <header>
+    <h1>Belgium Research Network for Network Science</h1>
+    <nav>
+      <ul>
+        <li><a href="#index" class="active" onclick="openTab(event, 'index')">Index</a></li>
+        <li><a href="#members" onclick="openTab(event, 'members')">Members</a></li>
+        <li><a href="#events" onclick="openTab(event, 'events')">Events</a></li>
+        <li><a href="#publications" onclick="openTab(event, 'publications')">Publications</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- INDEX TAB -->
+  <section id="index" class="tab-content active-content">
+    <h2>Belgium Research Network for Network Science </h2>
+    <br>
+    <p>
+      The <strong>Belgium Research Network for Network Science</strong> is an alliance of 
+      innovative and forward-thinking research teams in Belgium committed to advancing knowledge 
+      across various scientific fields using network science.
+      The network is dedicated to creating a virtual centre of excellence for network science research in Belgium. 
+      We aim to achieve this by establishing a core group of network researchers who will act as a magnet, attracting talented 
+      scientists and propelling network science forward. Through our focus on research and its practical applications, 
+      the network strives to deliver scientific, societal, and economic benefits to the people of Flanders and the broader Benelux region. 
+      To achieve that, the core group established an online presence with a webpage, and will organise annual scientific meetings 
+      and doctoral summer schools, to facilitate scientific collaborations between partners via research visits and seminars.
+    </p>
+
+    <!-- Logos in three rows:
+         First row: 1 logo
+         Second row: 3 logos
+         Third row: 3 logos -->
+    <div class="logo-row">
+  		<img src="./figs/logo-fwo.svg" alt="Logo FWO" />
+	  </div>
+
+    <div class="logo-row">
+  		<img src="./figs/logo_UGent.png" alt="Logo UGent" style="width: 50%; height: auto;"/>
+  		<img src="./figs/logo_KULeuven.webp" alt="Logo KULeuven" style="width: 50%; height: auto;"/>
+<!--  		<img src="./figs/logo_XXX.png" alt="Logo UNamur" style="width: 50%; height: auto;"/> -->
+    </div>
+
+    <div class="logo-row">
+  		<img src="./figs/logo_ULB.png" alt="Logo ULB" style="width: 50%; height: auto;"/>
+  		<img src="./figs/logo_UNamur.png" alt="Logo UNamur" style="width: 50%; height: auto;"/>
+  		<img src="./figs/logo_UCL.png" alt="Logo UCL" style="width: 50%; height: auto;"/>
+    </div>
+  </section>
+
+  <!-- MEMBERS TAB -->
+  <section id="members" class="tab-content">
+    <h2>Our Members</h2>
+    <p>
+      Meet the diverse group of research teams shaping the future of 
+      interdisciplinary collaboration on Network Science in Belgium. Below are our partners, each contributing unique expertise.
+    </p>
+
+    <div class="members-grid">
+      <!-- Member Card 1 -->
+      <div class="member-card">
+        <img 
+          src="https://via.placeholder.com/300x200.png?text=Group+1" 
+          alt="Research Group 1" 
+        />
+        <h3>Complex Systems Institute</h3>
+        <p>
+          Specializing in AI and machine learning, Group Alpha focuses on 
+          cutting-edge algorithms for data-driven innovation.
+        </p>
+        <a href="http://www.csi.ugent.be" class="learn-more">Learn More</a>
+      </div>
+
+      <!-- Member Card 2 -->
+      <div class="member-card">
+        <img 
+          src="https://via.placeholder.com/300x200.png?text=Group+2" 
+          alt="Research Group 2" 
+        />
+        <h3>Marinazzo Group</h3>
+        <p>
+          Focused on biomedical research, Group Beta pioneers novel methods 
+          in gene editing and personalized medicine.
+        </p>
+        <a href="#" class="learn-more">Learn More</a>
+      </div>
+
+      <!-- Member Card 3 -->
+      <div class="member-card">
+        <img 
+          src="https://via.placeholder.com/300x200.png?text=Group+3" 
+          alt="Research Group 3" 
+        />
+        <h3>Bion</h3>
+        <p>
+          With expertise in materials science, Group Gamma develops 
+          sustainable materials to address global environmental challenges.
+        </p>
+        <a href="#" class="learn-more">Learn More</a>
+      </div>
+
+      <!-- Member Card 4 -->
+      <div class="member-card">
+        <img 
+          src="https://via.placeholder.com/300x200.png?text=Group+4" 
+          alt="Research Group 4" 
+        />
+        <h3>Crime</h3>
+        <p>
+          Championing interdisciplinary approaches, Group Delta tackles 
+          societal challenges at the intersection of engineering and policy.
+        </p>
+        <a href="#" class="learn-more">Learn More</a>
+      </div>
+      <!-- Add more cards as needed -->
+    </div>
+  </section>
+
+  <!-- EVENTS TAB -->
+  <section id="events" class="tab-content">
+    <h2>Upcoming Events</h2>
+    <p>
+      Explore upcoming conferences, workshops, and seminars hosted by 
+      the consortium.
+    </p>
+
+    <div class="event-categories">
+      <!-- SCIENTIFIC EVENTS -->
+      <div class="event-category">
+        <h3>Scientific Events</h3>
+        <div class="event-list">
+          <!-- Event 1 -->
+          <div class="event-item">
+            <div class="event-date">25 Feb 2025</div>
+            <div class="event-info">
+              <h4>International AI Conference</h4>
+              <p>
+                A platform for cutting-edge AI research, featuring talks
+                by leading scientists in machine learning and robotics.
+              </p>
+              <a href="#" class="event-link">View Details</a>
+            </div>
+          </div>
+
+          <!-- Event 2 -->
+
+
+        </div>
+      </div>
+
+      <!-- EDUCATIONAL EVENTS -->
+      <div class="event-category">
+        <h3>Educational Events</h3>
+        <div class="event-list">
+          <!-- Event 1 -->
+          <div class="event-item">
+            <div class="event-date">05 Apr 2025</div>
+            <div class="event-info">
+              <h4>Data Science Boot Camp</h4>
+              <p>
+                A hands-on training program teaching fundamental data 
+                science tools and techniques, ideal for beginners.
+              </p>
+              <a href="#" class="event-link">View Details</a>
+            </div>
+          </div>
+
+          <!-- Event 2 -->
+
+
+        </div>
+      </div>
+    </div>
+    
+      <!-- PAST EVENTS -->
+  <h2 style="margin-top: 3rem;">Past Events</h2>
+  <div class="event-categories">
+    <div class="event-category">
+      <div class="event-list">
+        <!-- Past Event 1 -->
+        <div class="event-item">
+          <div class="event-date">15 Sep 2024</div>
+          <div class="event-info">
+            <h4>Quantum Computing Workshop</h4>
+            <p>
+              An intensive one-day workshop on quantum computing 
+              fundamentals, covering hardware, software, and frameworks.
+            </p>
+            <a href="#" class="event-link">View Recap</a>
+          </div>
+        </div>
+
+        <!-- Past Event 2 -->
+        <div class="event-item">
+          <div class="event-date">10 Oct 2024</div>
+          <div class="event-info">
+            <h4>Green Tech Forum</h4>
+            <p>
+              A forum bringing together environmental scientists 
+              and entrepreneurs to discuss emerging green technologies.
+            </p>
+            <a href="#" class="event-link">View Recap</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- You can add more event-category blocks if you want separate groupings for past events -->
+  </div>
+</section>
+    
+  <!-- PUBLICATIONS TAB -->
+  <section id="publications" class="tab-content">
+    <h2>Recent Publications</h2>
+    <p>
+      Discover the latest research findings, peer-reviewed articles, 
+      and collaborative publications from our members.
+    </p>
+
+    <div class="publication-list">
+      <!-- Publication 1 -->
+      <div class="publication">
+        <h3 class="publication-title">Advanced Networks for....</h3>
+        <p class="publication-authors">J. XXX, A. XXX, &amp; W. XXX</p>
+        <p class="publication-journal">Journal of XXX, 2025</p>
+        <a href="#" class="publication-link">Download PDF</a>
+      </div>
+
+      <!-- Publication 2 -->
+<!--      <div class="publication">
+        <h3 class="publication-title">Sustainable Materials in Construction</h3>
+        <p class="publication-authors">L. Garcia &amp; M. Johnson</p>
+        <p class="publication-journal">International Journal of Green Engineering, 2024</p>
+        <a href="#" class="publication-link">Download PDF</a>
+      </div>
+-->
+
+      <!-- Add more publications as needed -->
+    </div>
+  </section>
+
+  <!-- JAVASCRIPT FOR TABBED INTERFACE -->
+  <script>
+    function openTab(event, tabId) {
+      // 1. Hide all tab-content sections
+      const tabContents = document.getElementsByClassName('tab-content');
+      for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].style.display = 'none';
+        tabContents[i].classList.remove('active-content');
+      }
+
+      // 2. Remove "active" class from all navigation links
+      const tabLinks = document.querySelectorAll('nav a');
+      tabLinks.forEach(link => link.classList.remove('active'));
+
+      // 3. Show the clicked tab's content
+      const activeSection = document.getElementById(tabId);
+      activeSection.style.display = 'block';
+      activeSection.classList.add('active-content');
+
+      // 4. Add "active" class to the clicked tab link
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
