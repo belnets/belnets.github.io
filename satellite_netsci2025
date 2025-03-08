@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Consortium of Network Research Groups</title>
+</head>
 
+  <!-- HEADER (TITLE + NAV) -->
+  <header>
+    <h1>Belgium Research Network for Network Science</h1>
+    <nav>
+      <ul>
+        <li><a href="#index" class="active" onclick="openTab(event, 'index')">Index</a></li>
+     </ul>
+    </nav>
+  </header>
+
+<body>
+  <!-- INDEX TAB -->
+  <section id="index" class="tab-content active-content">
+    <h2>Belgium Research Network for Network Science </h2>
+    <br>
+    <p>
+      The <strong>Belgium Research Network for Network Science</strong> is an alliance of 
+      innovative and forward-thinking research teams in Belgium committed to advancing knowledge 
+    </p>
+    <br>
+    Freely subscribe to our mailing list. Send a blank email to "listserv@lists.ugent.be" with the subject "subscribe benet YourFirstName YourFamilyName" 
+   
+    <br><br>
+    WebPage under development.
+    <br>
+    WebMaster: Luis Rocha. Updated: 08.03.2025
+  </section>
+
+</body>
+</html>
