@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Networking and Clustering Network Scientists</title>
 
   <style>
-    /* ----- RESET SOME DEFAULTS ----- */
+    :root {
+      --primary-color: #333;
+      --secondary-color: #fff;
+      --bg-color: #f8f9fa;
+      --accent-bg: rgba(255, 255, 255, 0.2);
+      --overlay-dark: rgba(0, 0, 0, 0.3);
+    }
+
+    /* Reset Defaults */
     * {
       margin: 0;
       padding: 0;
@@ -15,180 +23,141 @@
 
     body {
       font-family: Arial, sans-serif;
-      line-height: 1.5;
-      color: #333;
-      background-color: #f8f9fa;
+      line-height: 1.6;
+      color: var(--primary-color);
+      background-color: var(--bg-color);
     }
 
-    /* ----- HEADER (TITLE + NAV) WITH BACKGROUND IMAGE ----- */
+    /* Header with Background Image */
     header {
       position: relative;
-      background: url("./figs/fig3.webp") no-repeat center center;
-      background-size: cover;
-      color: #fff;
-      padding: 2rem 1rem;
+      background: url("./figs/fig3.webp") no-repeat center center/cover;
+      color: var(--secondary-color);
+      padding: 2.5rem 1rem;
       text-align: center;
-      overflow: hidden; /* So overlay doesn't overflow outside the header */
     }
 
-    /* Optional overlay to darken/lighten the header background */
     header::before {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.3); /* Adjust alpha for desired darkness */
+      inset: 0;
+      background: var(--overlay-dark);
       z-index: 1;
     }
 
-    header h1,
-    header nav {
-      position: relative; /* So they're above the overlay */
-      z-index: 2;
-    }
-
     header h1 {
+      position: relative;
+      z-index: 2;
       font-size: 2rem;
-      margin-bottom: 1rem;
     }
 
-    nav ul {
-      list-style-type: none;
+    /* Navigation */
+    nav {
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      gap: 1.5rem;
+      padding: 1rem;
+      background: var(--primary-color);
     }
 
     nav a {
       text-decoration: none;
-      color: #fff; /* White text for visibility on darker background */
+      color: var(--secondary-color);
       font-weight: 600;
       padding: 0.5rem 1rem;
-      border-radius: 4px;
-      transition: background-color 0.3s;
+      border-radius: 5px;
+      transition: background 0.3s ease;
     }
 
-    nav a:hover {
-      background-color: rgba(255, 255, 255, 0.2);
+    nav a:hover, nav a.active {
+      background: var(--accent-bg);
     }
 
-    nav a.active {
-      background-color: rgba(255, 255, 255, 0.3);
+    /* Content Styling */
+.content-wrapper {
+  max-width: 90%; /* Expands box width while keeping margins */
+  width: 1100px; /* Adjusted for long text */
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--secondary-color);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+    h2, h3 {
+      text-align: center;
+      margin-bottom: 1rem;
     }
 
-    /* ----- MAIN CONTENT: TABBED SECTIONS ----- */
-    .tab-content {
-      display: none; /* Hide all sections by default */
-      padding: 2rem;
-      max-width: 800px;
-      margin: 2rem auto;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    p {
+      margin-bottom: 1rem;
     }
 
-    .active-content {
-      display: block; /* Show active tab content */
+    ul {
+      margin-bottom: 1rem;
+      padding-left: 1.2rem;
     }
 
-    /* ----- RESPONSIVE DESIGN ----- */
-    @media (max-width: 600px) {
-      nav ul {
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav {
         flex-direction: column;
-        gap: 0.5rem;
+        align-items: center;
       }
 
-      nav a {
-        display: inline-block;
-        text-align: center;
-        width: 100%;
-      }
-
-      .event-categories {
-        flex-direction: column;
+      .content-wrapper {
+        padding: 1.5rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER (TITLE + NAV) -->
+  <!-- HEADER -->
   <header>
     <h1>Belgium Research Network for Network Science</h1>
   </header>
 
-  <!-- INDEX TAB -->
-  <section id="index" class="tab-content active-content">
-    <h2>NetSci 2025 Satellite - Networking and Clustering Network Scientists </h2>
-    <br>
-    <p>
-      The satellite <strong>Networking and Clustering Network Scientists</strong> aims to bring together co-organisers and participants
-      of local chapters (national associations, research groups) of network scientists to share experiences and strategies to create, sustain, 
-      and expand collaborations on network science and promote research and education in network science within geographical regions.
-      <br><br>
-      Invited speakers and colleagues will share their experiences via short talks and a round table. Topics include:
-      optimal organisation structure, strategies to attract and sustain active members, reaching diverse audiences, sustaining the network, 
-      organising scientific, educational, and cultural events, outreach activities, online vs in-person activities, sharing seminar mailing lists 
-      for cross-national collaboration, sharing online seminars, among other related topics.
-      <br><br>
-      The satellite will take place on 2 or 3 June, 2025, as part of <a href="https://netsci2025.github.io/">NetSci 2025</a> in Maastricht, the Netherlands.
-      <br><br>
-      <h3>Invited Speakers</h3>
-      <br>To be Announced
-      <br>XXXX - XXXX
-      <br>XXXX - XXXX
-      <br><br>
-      <h3>Preliminary Programme</h3>
-      <br> (5min) Welcome
-      <br> (5min) Brief Presentation of BENet, Belgium
-      <br> (5min) Brief Presentation of XXX (TBA)
-      <br> (5min) Brief Presentation of XXX (TBA)
-      <br> (90min) Round Table with Open Discussions
-      <br> (5min) Closing remarks
-      <br><br>
-      The satellite is free and open to officially registered participants of NetSci 2025. But if you are interested to participate,
-      please, contact <a href="https://www.csi.ugent.be">Luis Rocha</a> for organisational reasons.
-      <br><br>
-      <h2>Organisers</h2>
-      <br>Luis Rocha, Ghent University, Belgium
-      <br>Danielle Marinazzo, Ghent University, Belgium
-      <br>Timoteo Carletti, University of Namur, Belgium
-      <br><br>
-      The satellite is sponsored by the <a href="https://www.fwo.be/en/">Research Foundation Flanders</a>, Belgium, via the 
-      Belgium Research Network for Network Science <a href="https://belnets.github.io">(BENet)</a>.
-    </p>
-    <br>
-
-    <br>
-    WebMaster: Luis Rocha. Updated: 08.03.2025
-  </section>
-
+  <!-- MAIN CONTENT -->
+  <div class="content-wrapper">
+    <h2>NetSci 2025 Satellite - Networking and Clustering Network Scientists</h2>
     
-  <!-- JAVASCRIPT FOR TABBED INTERFACE -->
-  <script>
-    function openTab(event, tabId) {
-      // 1. Hide all tab-content sections
-      const tabContents = document.getElementsByClassName('tab-content');
-      for (let i = 0; i < tabContents.length; i++) {
-        tabContents[i].style.display = 'none';
-        tabContents[i].classList.remove('active-content');
-      }
+    <p>
+      The satellite <strong>Networking and Clustering Network Scientists</strong> brings together organizers and participants
+      of local network science groups to share strategies for collaboration and outreach.
+    </p>
 
-      // 2. Remove "active" class from all navigation links
-      const tabLinks = document.querySelectorAll('nav a');
-      tabLinks.forEach(link => link.classList.remove('active'));
+    <p>
+      The satellite will take place on <strong>2 or 3 June, 2025</strong>, as part of 
+      <a href="https://netsci2025.github.io/">NetSci 2025</a> in Maastricht, the Netherlands.
+    </p>
 
-      // 3. Show the clicked tab's content
-      const activeSection = document.getElementById(tabId);
-      activeSection.style.display = 'block';
-      activeSection.classList.add('active-content');
+    <h3>Invited Speakers</h3>
+    <ul>
+      <li>To be announced</li>
+      <li>XXXX - XXXX</li>
+      <li>XXXX - XXXX</li>
+    </ul>
 
-      // 4. Add "active" class to the clicked tab link
-      event.currentTarget.classList.add('active');
-    }
-  </script>
+    <h3>Preliminary Programme</h3>
+    <ul>
+      <li>(5 min) Welcome</li>
+      <li>(5 min) Brief Presentation of BENet, Belgium</li>
+      <li>(~90 min) Round Table with Open Discussions</li>
+      <li>(5 min) Closing remarks</li>
+    </ul>
+
+    <h2>Organisers</h2>
+    <ul>
+      <li><strong>Luis Rocha</strong>, Ghent University, Belgium</li>
+      <li><strong>Danielle Marinazzo</strong>, Ghent University, Belgium</li>
+      <li><strong>Timoteo Carletti</strong>, University of Namur, Belgium</li>
+    </ul>
+
+    <p><small>WebMaster: Luis Rocha. Updated: 08.03.2025</small></p>
+  </div>
 
 </body>
 </html>
+
