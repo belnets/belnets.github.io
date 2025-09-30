@@ -26,7 +26,7 @@
       font-family: Arial, sans-serif;
       line-height: 1.6;
       color: var(--primary-color);
-      background-color: var(--bg-color);
+      background: transparent;
     }
 
     /* Header with Background Image */
@@ -164,8 +164,6 @@
   <!-- HEADER -->
   <header>
     <h1>Belgium Research Network for Network Science</h1>
-  </header>
-
   <!-- TABS NAVIGATION -->
   <nav role="tablist" aria-label="BENet 2025 sections">
     <a href="#main" role="tab" aria-controls="panel-main" aria-selected="true" class="active">Main</a>
@@ -174,6 +172,8 @@
     <a href="#registration" role="tab" aria-controls="panel-registration" aria-selected="false">Registration</a>
     <a href="#location" role="tab" aria-controls="panel-location" aria-selected="false">Location</a>
   </nav>
+  </header>
+
 
   <!-- MAIN CONTENT WRAPPER -->
   <div class="content-wrapper">
@@ -208,13 +208,13 @@
       <h2>Mailing List</h2>
       <p>
         To receive further information about this meeting and news about Belgian researchers working on networks, subscribe to this (low frequency) mailing list:
-        http://listserv.vub.ac.be/mailman/listinfo/benet
+        <br>Send a blank email to "listserv@lists.ugent.be" with the subject "subscribe benet YourFirstName YourFamilyName"
       </p>
 
       <h2>Previous Editions</h2>
       <ul>
         <li><a href="https://www.naxys.be/benet/">UNamur 2021</a> - Namur</li>
-        <li><a href="https://csi.ugent.be/events/benet/venue.html">UGent 2020</a> - Ghent</li>
+        <li><a href="https://csi.ugent.be/events/benet/">UGent 2020</a> - Ghent</li>
         <li><a href="https://be-net.github.io/2019/">UHasselt 2019</a> - Hasselt</li>
         <li><a href="https://be-net.github.io/2017/">UGent 2017</a> - Ghent</li>
         <li><a href="https://be-net.github.io/2016/">UCLouvain 2016</a> - Louvain-la-Neuve</li>
@@ -244,18 +244,26 @@
     <!-- PANEL: PROGRAMME -->
     <section id="panel-programme" class="tab-panel" role="tabpanel" aria-labelledby="tab-programme">
       <h2>Preliminary Programme</h2>
-      <ul>
-        09:00 - 09:10: Opening -
-        09:10 - 10:30: SESSION I - Chair:
-        10:30 - 11:00: Coffee break
-        11:00 - 12:20: SESSION II - Chair:
-        12:20 - 13:20: Lunch break + Posters
-        13:20 - 15:00: SESSION III - Chair:
-        15:00 - 15:30: Coffee break
-        15:30 - 17:00: SESSION IV - Chair:
-        16:50 - 17:00: Closing
-        17:00 - 19:00: Drinks *TBC
-      </ul>
+      <div class=\"schedule-wrap\">
+<table class=\"schedule\" aria-describedby=\"programme-caption\">
+<caption id=\"programme-caption\" class=\"sr-only\">Preliminary programme schedule</caption>
+<thead>
+<tr><th scope=\"col\">Time</th><th scope=\"col\">Item</th><th scope=\"col\">Notes</th></tr>
+</thead>
+<tbody>
+<tr><td class=\"time\">09:00 – 09:10</td><td>Opening</td><td></td></tr>
+<tr><td class=\"time\">09:10 – 10:30</td><td>SESSION I</td><td>Chair:</td></tr>
+<tr><td class=\"time\">10:30 – 11:00</td><td>Coffee break</td><td></td></tr>
+<tr><td class=\"time\">11:00 – 12:20</td><td>SESSION II</td><td>Chair:</td></tr>
+<tr><td class=\"time\">12:20 – 13:20</td><td>Lunch break + Posters</td><td></td></tr>
+<tr><td class=\"time\">13:20 – 15:00</td><td>SESSION III</td><td>Chair:</td></tr>
+<tr><td class=\"time\">15:00 – 15:30</td><td>Coffee break</td><td></td></tr>
+<tr><td class=\"time\">15:30 – 17:00</td><td>SESSION IV</td><td>Chair:</td></tr>
+<tr><td class=\"time\">16:50 – 17:00</td><td>Closing</td><td></td></tr>
+<tr><td class=\"time\">17:00 – 19:00</td><td>Drinks</td><td>*TBC</td></tr>
+</tbody>
+</table>
+</div>
       <!--
       <ul>
       09:00 - 09:10: Opening -
