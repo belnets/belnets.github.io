@@ -38,13 +38,28 @@
       text-align: center;
     }
 
-    header::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: var(--overlay-dark);
-      z-index: 1;
-    }
+/* Header overlay should not capture clicks */
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-dark);
+  z-index: 1;
+  pointer-events: none;            /* ← important */
+}
+
+/* Tabs over the image/overlay */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: transparent;         /* ← remove the grey bar */
+  flex-wrap: wrap;
+  position: relative;              /* ← give it a stacking context */
+  z-index: 2;                      /* ← above the overlay */
+}
+
 
     header h1 {
       position: relative;
@@ -199,7 +214,7 @@
       <br />December 1, 2025: Registration deadline
       <br />December 17, 2025: Conference
 
-      <h3>Invited Speakers</h3>
+      <h2>Invited Speakers</h2>
       <ul>
         <li>....</li>
         <li>....</li>
@@ -242,28 +257,31 @@
     </section>
 
     <!-- PANEL: PROGRAMME -->
-    <section id="panel-programme" class="tab-panel" role="tabpanel" aria-labelledby="tab-programme">
-      <h2>Preliminary Programme</h2>
-      <div class=\"schedule-wrap\">
-<table class=\"schedule\" aria-describedby=\"programme-caption\">
-<caption id=\"programme-caption\" class=\"sr-only\">Preliminary programme schedule</caption>
-<thead>
-<tr><th scope=\"col\">Time</th><th scope=\"col\">Item</th><th scope=\"col\">Notes</th></tr>
-</thead>
-<tbody>
-<tr><td class=\"time\">09:00 – 09:10</td><td>Opening</td><td></td></tr>
-<tr><td class=\"time\">09:10 – 10:30</td><td>SESSION I</td><td>Chair:</td></tr>
-<tr><td class=\"time\">10:30 – 11:00</td><td>Coffee break</td><td></td></tr>
-<tr><td class=\"time\">11:00 – 12:20</td><td>SESSION II</td><td>Chair:</td></tr>
-<tr><td class=\"time\">12:20 – 13:20</td><td>Lunch break + Posters</td><td></td></tr>
-<tr><td class=\"time\">13:20 – 15:00</td><td>SESSION III</td><td>Chair:</td></tr>
-<tr><td class=\"time\">15:00 – 15:30</td><td>Coffee break</td><td></td></tr>
-<tr><td class=\"time\">15:30 – 17:00</td><td>SESSION IV</td><td>Chair:</td></tr>
-<tr><td class=\"time\">16:50 – 17:00</td><td>Closing</td><td></td></tr>
-<tr><td class=\"time\">17:00 – 19:00</td><td>Drinks</td><td>*TBC</td></tr>
-</tbody>
-</table>
-</div>
+<section id="panel-programme" class="tab-panel" role="tabpanel" aria-labelledby="tab-programme">
+  <h2>Preliminary Programme</h2>
+  <div class="schedule-wrap">
+    <table class="schedule" aria-describedby="programme-caption">
+      <caption id="programme-caption" class="sr-only">Preliminary programme schedule</caption>
+      <thead>
+        <tr><th scope="col">Time</th><th scope="col">Item</th><th scope="col">Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="time">09:00 – 09:10</td><td>Opening</td><td></td></tr>
+        <tr><td class="time">09:10 – 10:30</td><td>SESSION I</td><td>Chair:</td></tr>
+        <tr><td class="time">10:30 – 11:00</td><td>Coffee break</td><td></td></tr>
+        <tr><td class="time">11:00 – 12:20</td><td>SESSION II</td><td>Chair:</td></tr>
+        <tr><td class="time">12:20 – 13:20</td><td>Lunch break + Posters</td><td></td></tr>
+        <tr><td class="time">13:20 – 15:00</td><td>SESSION III</td><td>Chair:</td></tr>
+        <tr><td class="time">15:00 – 15:30</td><td>Coffee break</td><td></td></tr>
+        <tr><td class="time">15:30 – 17:00</td><td>SESSION IV</td><td>Chair:</td></tr>
+        <tr><td class="time">16:50 – 17:00</td><td>Closing</td><td></td></tr>
+        <tr><td class="time">17:00 – 19:00</td><td>Drinks</td><td>*TBC</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- your original commented block stays untouched below -->
+</section>
+
       <!--
       <ul>
       09:00 - 09:10: Opening -
