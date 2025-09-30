@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Networking and Clustering Network Scientists</title>
+
+  <style>
+    :root {
+      --primary-color: #333;
+      --secondary-color: #fff;
+      --bg-color: #f8f9fa;
+      --accent-bg: rgba(255, 255, 255, 0.2);
+      --overlay-dark: rgba(0, 0, 0, 0.3);
+    }
+
+    /* Reset Defaults */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--primary-color);
+      background-color: var(--bg-color);
+    }
+
+    /* Header with Background Image */
+    header {
+      position: relative;
+      background: url("./figs/fig3.webp") no-repeat center center/cover;
+      color: var(--secondary-color);
+      padding: 2.5rem 1rem;
+      text-align: center;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--overlay-dark);
+      z-index: 1;
+    }
+
+    header h1 {
+      position: relative;
+      z-index: 2;
+      font-size: 2rem;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 1rem;
+      background: var(--primary-color);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--secondary-color);
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    nav a:hover, nav a.active {
+      background: var(--accent-bg);
+    }
+
+    /* Content Styling */
+.content-wrapper {
+  max-width: 90%; /* Expands box width while keeping margins */
+  width: 1000px; /* Adjusted for long text */
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--secondary-color);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+    h2, h3 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      margin-bottom: 1rem;
+      padding-left: 1.2rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .content-wrapper {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <h1>Belgium Research Network for Network Science</h1>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="content-wrapper">
+    <h2>10th BELGIAN NETWORK RESEARCH MEETING</h2>
+    
+    <p>
+    The 11th edition of the Belgian Network Research Meeting (BENet) will be organised by the Complex Systems Institute from Ghent University on December 17, 2025.
+    The purpose of this annual gathering is to foster communication among Belgian researchers employing network science on their work, regardless of their discipline: sociology, economics, communication, history, biology, physics, medicine, informatics, etc.
+    <br>
+    Contact Prof Luis Rocha for more information.
+    </p>
+    <p>
+      Invited speakers and colleagues will share their experiences via short talks. Topics include: optimal organisation structure, strategies to attract and sustain active members, reaching diverse audiences, sustaining the network, 
+      organising scientific, educational, and cultural events, outreach activities, online vs in-person activities, sharing seminar mailing lists 
+      for cross-national collaboration, and related topics.
+    </p>
+    <p>
+      The satellite will take place on <strong>2 June, 2025</strong> from Xh to Xh (ATTENTION: moved to 16:30h-18:00h) (room FASoS GG76 0.16), as part of 
+      <a href="https://netsci2025.github.io/">NetSci 2025</a> in Maastricht, the Netherlands.
+    </p>
+
+    <h3>Invited Speakers</h3>
+    <ul>
+      <li>....</li>
+      <li>....</li>
+    </ul>
+
+    <h3>Preliminary Programme</h3>
+    <ul>
+      <li>(5 min) Welcome</li>
+      <li>(5 min) Brief Presentation of BENet, Belgium (Luis Rocha)</li>
+      <li>(5 min) Brief Presentation of Dutch Chapter Network Science Society (Maksim Kitsak)</li>
+      <li>(5 min) Brief Presentation of UK Chapter Network Science Society (Nicola Perra)</li>
+      <li>(~60 min) Round Table with Open Discussions</li>
+      <li>(5 min) Closing remarks</li>
+    </ul>
+
+    <p>
+    Registration is mandatory <a href="">here</a>. Registration is free. <s>Deadline: </s> November 17, 2025.
+    </p>
+    
+    <h2>Call for Abstracts</h2>    
+    We welcome the submission of short research abstracts. Authors of selected contributions will be invited to present and discuss their work during the meeting.
+    Please take into account the interdisciplinary nature of this event: tutorial presentations will be favored over detailed reports. If you prefer a shorter (5 min) or longer (15 min) talk, specify your choice during the submission. We will try to accommodate all wishes.
+    <br>
+    Submit <a href="">here</a> your title and abstract (text only, 150-200 words) by November 17, 2025.
+    <br>
+    <br>The scope of the meeting includes but is not restricted to:
+    <br>Social & organisational theory
+    <br>Economics & Finance
+    <br>Social media & online activities
+    <br>Human communication & mobility
+    <br>Information diffusion & opinion dynamics
+    <br>Political networks & collective action
+    <br>Ecology, ethology, food webs
+    <br>Biology & bioinformatics
+    <br>Epidemiology
+    <br>Physics, Mathematics & Statistics
+    <br>Modelling & Data Analysis
+    <br>Statistical networks & Bayesian networks
+    <br>Social network analysis
+    <br>
+    <br>The book of abstracts with list of participants is available <a href="">here</a>.
+
+    <h2>Mailing List</h2>
+    To receive further information about this meeting and news about Belgian researchers working on networks, subscribe to this (low frequency) mailing list:
+    http://listserv.vub.ac.be/mailman/listinfo/benet
+
+    <h2>Previous Editions</h2>
+    <ul>
+      <li>UNamur 2021 - Namur</li>
+      <li>UGent 2020 - Ghent</li>
+      <li>UHasselt 2019 - Hasselt</li>
+      <li>UGent 2017 - Ghent</li>
+      <li>UCLouvain 2016 - Louvain-la-Neuve</li>
+      <li>UNamur 2015 - Namur</li>
+      <li>ULB 2014 - Brussels</li>
+      <li>IIS/KUL 2013 - Leuven</li>
+      <li>UAntwerpen 2012 - Antwerpen</li>
+      <li>VUB 2011 - Brussels</li>
+    </ul>
+    
+    <h2>Organisers</h2>
+    <ul>
+      <li><strong>Luis Rocha</strong>, Ghent University, Belgium</li>
+      <li><strong>Danielle Marinazzo</strong>, Ghent University, Belgium</li>
+      <li><strong>Jan Baetens</strong>, Ghent University, Belgium</li>
+    </ul>
+
+    <p>
+    The satellite is sponsored by the 
+    <a href="https://www.fwo.be/en/">Research Foundation Flanders</a>, Belgium, via the 
+    <a href="https://belnets.github.io">Belgium Research Network for Network Science (BENet)</a>.
+    </p>
+
+    <p><small>WebMaster: Luis Rocha. Updated: 30.09.2025</small></p>
+  </div>
+
+</body>
+</html>
