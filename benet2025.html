@@ -66,6 +66,37 @@ nav {
       z-index: 2;
       font-size: 2rem;
     }
+/* Schedule Table */
+.schedule-wrap { overflow-x: auto; }
+table.schedule {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+table.schedule colgroup col:nth-child(1) { width: 22%; }   /* Time */
+table.schedule colgroup col:nth-child(2) { width: 58%; }   /* Item */
+table.schedule colgroup col:nth-child(3) { width: 20%; }   /* Notes */
+
+table.schedule td {
+  padding: 0.85rem 1.2rem;           /* more overall padding */
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  text-align: left;
+}
+table.schedule td + td {              /* extra space between cols 1→2 and 2→3 */
+  padding-left: 1.8rem;
+}
+table.schedule tbody tr:hover { background: rgba(0,0,0,0.03); }
+
+table.schedule td.time {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;                   /* bold times */
+}
+table.schedule tr.session td {        /* bold SESSION rows */
+  font-weight: 700;
+}
+table.schedule td.notes { color: #555; }
 
     /* Tabs Nav */
     nav {
@@ -174,6 +205,7 @@ nav {
       border: 0 !important;
     }
   </style>
+  
 </head>
 <body>
   <!-- HEADER -->
@@ -259,26 +291,29 @@ nav {
     <!-- PANEL: PROGRAMME -->
 <section id="panel-programme" class="tab-panel" role="tabpanel" aria-labelledby="tab-programme">
   <h2>Preliminary Programme</h2>
-  <div class="schedule-wrap">
-    <table class="schedule" aria-describedby="programme-caption">
-      <caption id="programme-caption" class="sr-only">Preliminary programme schedule</caption>
-      <thead>
-        <tr><th scope="col">Time</th><th scope="col">Item</th><th scope="col">Notes</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="time">09:00 – 09:10</td><td>Opening</td><td></td></tr>
-        <tr><td class="time">09:10 – 10:30</td><td>SESSION I</td><td>Chair:</td></tr>
-        <tr><td class="time">10:30 – 11:00</td><td>Coffee break</td><td></td></tr>
-        <tr><td class="time">11:00 – 12:20</td><td>SESSION II</td><td>Chair:</td></tr>
-        <tr><td class="time">12:20 – 13:20</td><td>Lunch break + Posters</td><td></td></tr>
-        <tr><td class="time">13:20 – 15:00</td><td>SESSION III</td><td>Chair:</td></tr>
-        <tr><td class="time">15:00 – 15:30</td><td>Coffee break</td><td></td></tr>
-        <tr><td class="time">15:30 – 17:00</td><td>SESSION IV</td><td>Chair:</td></tr>
-        <tr><td class="time">16:50 – 17:00</td><td>Closing</td><td></td></tr>
-        <tr><td class="time">17:00 – 19:00</td><td>Drinks</td><td>*TBC</td></tr>
-      </tbody>
-    </table>
-  </div>
+<div class="schedule-wrap">
+  <table class="schedule" aria-describedby="programme-caption">
+    <caption id="programme-caption" class="sr-only">Preliminary programme schedule</caption>
+
+    <colgroup>
+      <col><col><col>
+    </colgroup>
+
+    <tbody>
+      <tr><td class="time">09:00 – 09:10</td><td>Opening</td><td class="notes"></td></tr>
+      <tr class="session"><td class="time">09:10 – 10:30</td><td>SESSION I</td><td class="notes">Chair:</td></tr>
+      <tr><td class="time">10:30 – 11:00</td><td>Coffee break</td><td class="notes"></td></tr>
+      <tr class="session"><td class="time">11:00 – 12:20</td><td>SESSION II</td><td class="notes">Chair:</td></tr>
+      <tr><td class="time">12:20 – 13:20</td><td>Lunch break + Posters</td><td class="notes"></td></tr>
+      <tr class="session"><td class="time">13:20 – 15:00</td><td>SESSION III</td><td class="notes">Chair:</td></tr>
+      <tr><td class="time">15:00 – 15:30</td><td>Coffee break</td><td class="notes"></td></tr>
+      <tr class="session"><td class="time">15:30 – 17:00</td><td>SESSION IV</td><td class="notes">Chair:</td></tr>
+      <tr><td class="time">16:50 – 17:00</td><td>Closing</td><td class="notes"></td></tr>
+      <tr><td class="time">17:00 – 19:00</td><td>Drinks</td><td class="notes">*TBC</td></tr>
+    </tbody>
+  </table>
+</div>
+
   <!-- your original commented block stays untouched below -->
 </section>
 
@@ -319,8 +354,8 @@ nav {
       <p>
         We welcome the submission of short research abstracts. Authors of selected contributions will be invited to present and discuss their work during the meeting.
         Please take into account the interdisciplinary nature of this event: tutorial presentations will be favored over detailed reports. If you prefer a shorter (5 min) or longer (15 min) talk, specify your choice during the submission. We will try to accommodate all wishes.
-        <br />
-        Submit <a href="">here</a> your title and abstract (text only, 150-200 words) by November 17, 2025.
+        <br/><br/>
+        Submit <a href="">here</a> your title and abstract (text only, 150-200 words) by <b>November 17, 2025</b>.
       </p>
       <br />The scope of the meeting includes but is not restricted to:
       <br />Social & organisational theory
@@ -347,11 +382,12 @@ nav {
     <section id="panel-registration" class="tab-panel" role="tabpanel" aria-labelledby="tab-registration">
       <h2>Registration</h2>
       <p>
-        Registration is free and mandatory <a href="">here</a>. <s>Deadline: </s> November 17, 2025.
+        Registration is free and mandatory <a href="">here</a>.
+        <b>Deadline: </b> December 1, 2025.
       </p>
       <h3 class="sr-only">Important Dates (duplicate for context)</h3>
       <p class="sr-only">
-        November 17, 2025: Submission of abstracts | November 27, 2025: Notification of acceptance | December 1, 2025: Registration deadline | December 17, 2025: Conference
+        <b>November 17, 2025:</b> Submission of abstracts | <b>November 27, 2025:</b> Notification of acceptance | <b>December 1, 2025:</b> Registration deadline | <b>December 17, 2025:</b> Conference
       </p>
     </section>
 
