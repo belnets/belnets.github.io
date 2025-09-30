@@ -38,28 +38,27 @@
       text-align: center;
     }
 
-/* Header overlay should not capture clicks */
+/* Header overlay: stays visible but doesn't block clicks */
 header::before {
   content: "";
   position: absolute;
   inset: 0;
   background: var(--overlay-dark);
   z-index: 1;
-  pointer-events: none;            /* ← important */
+  pointer-events: none;      /* ← allows clicking the tabs */
 }
 
-/* Tabs over the image/overlay */
+/* Tabs over the image/overlay — no bar background */
 nav {
   display: flex;
   justify-content: center;
   gap: 0.75rem;
   padding: 0.75rem;
-  background: transparent;         /* ← remove the grey bar */
+  background: transparent;   /* ← remove the grey bar */
   flex-wrap: wrap;
-  position: relative;              /* ← give it a stacking context */
-  z-index: 2;                      /* ← above the overlay */
+  position: relative;        /* ← create stacking context */
+  z-index: 2;                /* ← sit above header::before */
 }
-
 
     header h1 {
       position: relative;
