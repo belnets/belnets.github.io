@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Networking and Clustering Network Scientists</title>
 
   <style>
@@ -12,6 +12,7 @@
       --bg-color: #f8f9fa;
       --accent-bg: rgba(255, 255, 255, 0.2);
       --overlay-dark: rgba(0, 0, 0, 0.3);
+      --accent: #0d6efd;
     }
 
     /* Reset Defaults */
@@ -51,41 +52,49 @@
       font-size: 2rem;
     }
 
-    /* Navigation */
+    /* Tabs Nav */
     nav {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
-      padding: 1rem;
+      gap: 0.75rem;
+      padding: 0.75rem;
       background: var(--primary-color);
+      flex-wrap: wrap;
     }
 
     nav a {
       text-decoration: none;
       color: var(--secondary-color);
       font-weight: 600;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      transition: background 0.3s ease;
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      transition: background 0.2s ease, transform 0.05s ease;
+      outline-offset: 3px;
     }
 
-    nav a:hover, nav a.active {
+    nav a:hover,
+    nav a:focus-visible {
       background: var(--accent-bg);
     }
 
+    nav a.active {
+      background: var(--accent-bg);
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+    }
+
     /* Content Styling */
-.content-wrapper {
-  max-width: 90%; /* Expands box width while keeping margins */
-  width: 1000px; /* Adjusted for long text */
-  margin: 2rem auto;
-  padding: 2rem;
-  background: var(--secondary-color);
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+    .content-wrapper {
+      max-width: 90%;
+      width: 1000px; /* Adjusted for long text */
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--secondary-color);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-
-    h2, h3 {
+    h2,
+    h3 {
       text-align: center;
       margin-bottom: 1rem;
     }
@@ -99,10 +108,31 @@
       padding-left: 1.2rem;
     }
 
+    /* Panels */
+    .tab-panel {
+      display: none;
+      animation: fade 180ms ease-in;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     /* Responsive Design */
     @media (max-width: 768px) {
       nav {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
       }
 
@@ -110,111 +140,269 @@
         padding: 1.5rem;
       }
     }
+
+    /* Visually-hidden utility for accessibility-only headings */
+    .sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 1px, 1px) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
   </style>
 </head>
 <body>
-
   <!-- HEADER -->
   <header>
     <h1>Belgium Research Network for Network Science</h1>
   </header>
 
-  <!-- MAIN CONTENT -->
+  <!-- TABS NAVIGATION -->
+  <nav role="tablist" aria-label="BENet 2025 sections">
+    <a href="#main" role="tab" aria-controls="panel-main" aria-selected="true" class="active">Main</a>
+    <a href="#programme" role="tab" aria-controls="panel-programme" aria-selected="false">Programme</a>
+    <a href="#call" role="tab" aria-controls="panel-call" aria-selected="false">Call for Abstracts</a>
+    <a href="#registration" role="tab" aria-controls="panel-registration" aria-selected="false">Registration</a>
+    <a href="#location" role="tab" aria-controls="panel-location" aria-selected="false">Location</a>
+  </nav>
+
+  <!-- MAIN CONTENT WRAPPER -->
   <div class="content-wrapper">
-    <h2>10th BELGIAN NETWORK RESEARCH MEETING</h2>
-    
-    <p>
-    The 11th edition of the Belgian Network Research Meeting (BENet) will be organised by the Complex Systems Institute from Ghent University on December 17, 2025.
-    The purpose of this annual gathering is to foster communication among Belgian researchers employing network science on their work, regardless of their discipline: sociology, economics, communication, history, biology, physics, medicine, informatics, etc.
-    <br>
-    Contact Prof Luis Rocha for more information.
-    </p>
-    <p>
-      Invited speakers and colleagues will share their experiences via short talks. Topics include: optimal organisation structure, strategies to attract and sustain active members, reaching diverse audiences, sustaining the network, 
-      organising scientific, educational, and cultural events, outreach activities, online vs in-person activities, sharing seminar mailing lists 
-      for cross-national collaboration, and related topics.
-    </p>
-    <p>
-      The satellite will take place on <strong>2 June, 2025</strong> from Xh to Xh (ATTENTION: moved to 16:30h-18:00h) (room FASoS GG76 0.16), as part of 
-      <a href="https://netsci2025.github.io/">NetSci 2025</a> in Maastricht, the Netherlands.
-    </p>
+    <!-- PANEL: MAIN -->
+    <section id="panel-main" class="tab-panel active" role="tabpanel" aria-labelledby="tab-main">
+      <h2>11th BELGIAN NETWORK RESEARCH MEETING</h2>
 
-    <h3>Invited Speakers</h3>
-    <ul>
-      <li>....</li>
-      <li>....</li>
-    </ul>
+      <p>
+        The 11th edition of the Belgian Network Research Meeting (BENet) will be organised by the Complex Systems Institute from Ghent University on December 17, 2025.
+        The purpose of this annual gathering is to foster communication among Belgian researchers employing network science on their work, regardless of their discipline: sociology, economics, communication, history, biology, physics, medicine, informatics, etc.
+        <br />
+        Contact Prof Luis Rocha for more information.
+      </p>
+      <p>
+        Invited speakers and colleagues will share their experiences via short talks. Topics include: optimal organisation structure, strategies to attract and sustain active members, reaching diverse audiences, sustaining the network,
+        organising scientific, educational, and cultural events, outreach activities, online vs in-person activities, sharing seminar mailing lists
+        for cross-national collaboration, and related topics.
+      </p>
 
-    <h3>Preliminary Programme</h3>
-    <ul>
-      <li>(5 min) Welcome</li>
-      <li>(5 min) Brief Presentation of BENet, Belgium (Luis Rocha)</li>
-      <li>(5 min) Brief Presentation of Dutch Chapter Network Science Society (Maksim Kitsak)</li>
-      <li>(5 min) Brief Presentation of UK Chapter Network Science Society (Nicola Perra)</li>
-      <li>(~60 min) Round Table with Open Discussions</li>
-      <li>(5 min) Closing remarks</li>
-    </ul>
+      <h2>Important Dates</h2>
+      <br />November 17, 2025: Submission of abstracts
+      <br />November 27, 2025: Notification of acceptance
+      <br />December 1, 2025: Registration deadline
+      <br />December 17, 2025: Conference
 
-    <p>
-    Registration is mandatory <a href="">here</a>. Registration is free. <s>Deadline: </s> November 17, 2025.
-    </p>
-    
-    <h2>Call for Abstracts</h2>    
-    We welcome the submission of short research abstracts. Authors of selected contributions will be invited to present and discuss their work during the meeting.
-    Please take into account the interdisciplinary nature of this event: tutorial presentations will be favored over detailed reports. If you prefer a shorter (5 min) or longer (15 min) talk, specify your choice during the submission. We will try to accommodate all wishes.
-    <br>
-    Submit <a href="">here</a> your title and abstract (text only, 150-200 words) by November 17, 2025.
-    <br>
-    <br>The scope of the meeting includes but is not restricted to:
-    <br>Social & organisational theory
-    <br>Economics & Finance
-    <br>Social media & online activities
-    <br>Human communication & mobility
-    <br>Information diffusion & opinion dynamics
-    <br>Political networks & collective action
-    <br>Ecology, ethology, food webs
-    <br>Biology & bioinformatics
-    <br>Epidemiology
-    <br>Physics, Mathematics & Statistics
-    <br>Modelling & Data Analysis
-    <br>Statistical networks & Bayesian networks
-    <br>Social network analysis
-    <br>
-    <br>The book of abstracts with list of participants is available <a href="">here</a>.
+      <h3>Invited Speakers</h3>
+      <ul>
+        <li>....</li>
+        <li>....</li>
+      </ul>
 
-    <h2>Mailing List</h2>
-    To receive further information about this meeting and news about Belgian researchers working on networks, subscribe to this (low frequency) mailing list:
-    http://listserv.vub.ac.be/mailman/listinfo/benet
+      <h2>Mailing List</h2>
+      <p>
+        To receive further information about this meeting and news about Belgian researchers working on networks, subscribe to this (low frequency) mailing list:
+        http://listserv.vub.ac.be/mailman/listinfo/benet
+      </p>
 
-    <h2>Previous Editions</h2>
-    <ul>
-      <li>UNamur 2021 - Namur</li>
-      <li>UGent 2020 - Ghent</li>
-      <li>UHasselt 2019 - Hasselt</li>
-      <li>UGent 2017 - Ghent</li>
-      <li>UCLouvain 2016 - Louvain-la-Neuve</li>
-      <li>UNamur 2015 - Namur</li>
-      <li>ULB 2014 - Brussels</li>
-      <li>IIS/KUL 2013 - Leuven</li>
-      <li>UAntwerpen 2012 - Antwerpen</li>
-      <li>VUB 2011 - Brussels</li>
-    </ul>
-    
-    <h2>Organisers</h2>
-    <ul>
-      <li><strong>Luis Rocha</strong>, Ghent University, Belgium</li>
-      <li><strong>Danielle Marinazzo</strong>, Ghent University, Belgium</li>
-      <li><strong>Jan Baetens</strong>, Ghent University, Belgium</li>
-    </ul>
+      <h2>Previous Editions</h2>
+      <ul>
+        <li><a href="https://www.naxys.be/benet/">UNamur 2021</a> - Namur</li>
+        <li><a href="https://csi.ugent.be/events/benet/venue.html">UGent 2020</a> - Ghent</li>
+        <li><a href="https://be-net.github.io/2019/">UHasselt 2019</a> - Hasselt</li>
+        <li><a href="https://be-net.github.io/2017/">UGent 2017</a> - Ghent</li>
+        <li><a href="https://be-net.github.io/2016/">UCLouvain 2016</a> - Louvain-la-Neuve</li>
+        <li><a href="https://tdn2013.wixsite.com/benet2015">UNamur 2015</a> - Namur</li>
+        <li>ULB 2014 - Brussels</li>
+        <li>IIS/KUL 2013 - Leuven</li>
+        <li>UAntwerpen 2012 - Antwerpen</li>
+        <li>VUB 2011 - Brussels</li>
+      </ul>
 
-    <p>
-    The satellite is sponsored by the 
-    <a href="https://www.fwo.be/en/">Research Foundation Flanders</a>, Belgium, via the 
-    <a href="https://belnets.github.io">Belgium Research Network for Network Science (BENet)</a>.
-    </p>
+      <h2>Organisers</h2>
+      <ul>
+        <li><strong>Luis Rocha</strong>, Ghent University, Belgium</li>
+        <li><strong>Danielle Marinazzo</strong>, Ghent University, Belgium</li>
+        <li><strong>Jan Baetens</strong>, Ghent University, Belgium</li>
+      </ul>
 
-    <p><small>WebMaster: Luis Rocha. Updated: 30.09.2025</small></p>
+      <p>
+        The satellite is sponsored by the
+        <a href="https://www.fwo.be/en/">Research Foundation Flanders</a>, Belgium, via the
+        <a href="https://belnets.github.io">Belgium Research Network for Network Science (BENet)</a>.
+      </p>
+
+      <p><small>WebMaster: Luis Rocha. Updated: 30.09.2025</small></p>
+    </section>
+
+    <!-- PANEL: PROGRAMME -->
+    <section id="panel-programme" class="tab-panel" role="tabpanel" aria-labelledby="tab-programme">
+      <h2>Preliminary Programme</h2>
+      <ul>
+        09:00 - 09:10: Opening -
+        09:10 - 10:30: SESSION I - Chair:
+        10:30 - 11:00: Coffee break
+        11:00 - 12:20: SESSION II - Chair:
+        12:20 - 13:20: Lunch break + Posters
+        13:20 - 15:00: SESSION III - Chair:
+        15:00 - 15:30: Coffee break
+        15:30 - 17:00: SESSION IV - Chair:
+        16:50 - 17:00: Closing
+        17:00 - 19:00: Drinks *TBC
+      </ul>
+      <!--
+      <ul>
+      09:00 - 09:10: Opening -
+      09:10 - 10:30: SESSION I - Chair:
+      09:10 - 09:30:
+      09:30 - 09:50:
+      09:50 - 10:10:
+      10:10 - 10:30:
+      10:30 - 11:00: Coffee break
+      11:00 - 12:20: SESSION II - Chair: Matteo Gagliolo
+      11:00 - 11:20:
+      11:20 - 11:40:
+      11:40 - 12:00:
+      12:00 - 12:20:
+      12:20 - 13:20: Lunch break + Posters
+      13:20 - 15:00: SESSION III - Chair:
+      13:20 - 14:20: KEYNOTE: TBC
+      14:20 - 14:40:
+      14:40 - 15:00:
+      15:00 - 15:30: Coffee break
+      15:30 - 17:00: SESSION IV - Chair:
+      15:30 - 15:50:
+      15:50 - 16:10:
+      16:10 - 16:30:
+      16:30 - 16:50:
+      16:50 - 17:00: Closing
+      17:00 - 19:00: Drinks *TBC
+      </ul>
+      -->
+    </section>
+
+    <!-- PANEL: CALL FOR ABSTRACTS -->
+    <section id="panel-call" class="tab-panel" role="tabpanel" aria-labelledby="tab-call">
+      <h2>Call for Abstracts</h2>
+      <p>
+        We welcome the submission of short research abstracts. Authors of selected contributions will be invited to present and discuss their work during the meeting.
+        Please take into account the interdisciplinary nature of this event: tutorial presentations will be favored over detailed reports. If you prefer a shorter (5 min) or longer (15 min) talk, specify your choice during the submission. We will try to accommodate all wishes.
+        <br />
+        Submit <a href="">here</a> your title and abstract (text only, 150-200 words) by November 17, 2025.
+      </p>
+      <br />The scope of the meeting includes but is not restricted to:
+      <br />Social & organisational theory
+      <br />Economics & Finance
+      <br />Social media & online activities
+      <br />Human communication & mobility
+      <br />Information diffusion & opinion dynamics
+      <br />Political networks & collective action
+      <br />Ecology, ethology, food webs
+      <br />Biology & bioinformatics
+      <br />Epidemiology
+      <br />Physics, Mathematics & Statistics
+      <br />Modelling & Data Analysis
+      <br />Statistical networks & Bayesian networks
+      <br />Social network analysis
+      <br />Network visualisation
+      <br />Network criminology
+      <br />Networks and machine learning
+      <br />
+      <br />The book of abstracts with list of participants is available <a href="">here</a>.
+    </section>
+
+    <!-- PANEL: REGISTRATION -->
+    <section id="panel-registration" class="tab-panel" role="tabpanel" aria-labelledby="tab-registration">
+      <h2>Registration</h2>
+      <p>
+        Registration is free and mandatory <a href="">here</a>. <s>Deadline: </s> November 17, 2025.
+      </p>
+      <h3 class="sr-only">Important Dates (duplicate for context)</h3>
+      <p class="sr-only">
+        November 17, 2025: Submission of abstracts | November 27, 2025: Notification of acceptance | December 1, 2025: Registration deadline | December 17, 2025: Conference
+      </p>
+    </section>
+
+    <!-- PANEL: LOCATION -->
+    <section id="panel-location" class="tab-panel" role="tabpanel" aria-labelledby="tab-location">
+      <h2>Location</h2>
+      <p>
+        The annual meeting will take place in Ghent. The exact venue will be informed in the near future.
+      </p>
+    </section>
   </div>
 
+  <script>
+    // Simple tab system with hash-based deep linking
+    (function () {
+      const nav = document.querySelector('nav[role="tablist"]');
+      const tabs = Array.from(nav.querySelectorAll('a[role="tab"]'));
+      const panels = Array.from(document.querySelectorAll('.tab-panel'));
+
+      function show(id) {
+        const hash = id.startsWith('#') ? id : `#${id}`;
+        // map hash -> panel id
+        const map = {
+          '#main': 'panel-main',
+          '#programme': 'panel-programme',
+          '#call': 'panel-call',
+          '#registration': 'panel-registration',
+          '#location': 'panel-location',
+        };
+        const panelId = map[hash] || 'panel-main';
+
+        // update active tab
+        tabs.forEach((t) => {
+          const isActive = t.getAttribute('href') === hash;
+          t.classList.toggle('active', isActive);
+          t.setAttribute('aria-selected', String(isActive));
+          t.setAttribute('tabindex', isActive ? '0' : '-1');
+        });
+
+        // update panels
+        panels.forEach((p) => p.classList.remove('active'));
+        const activePanel = document.getElementById(panelId);
+        if (activePanel) activePanel.classList.add('active');
+
+        // update hash without scrolling
+        if (location.hash !== hash) {
+          history.replaceState(null, '', hash);
+        }
+      }
+
+      // Click handling
+      nav.addEventListener('click', (e) => {
+        const a = e.target.closest('a[role="tab"]');
+        if (!a) return;
+        e.preventDefault();
+        show(a.getAttribute('href'));
+      });
+
+      // Keyboard support for tabs
+      nav.addEventListener('keydown', (e) => {
+        const current = document.activeElement;
+        const i = tabs.indexOf(current);
+        if (i === -1) return;
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          const next = tabs[(i + 1) % tabs.length];
+          next.focus();
+          show(next.getAttribute('href'));
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          const prev = tabs[(i - 1 + tabs.length) % tabs.length];
+          prev.focus();
+          show(prev.getAttribute('href'));
+        }
+      });
+
+      // Initialize from hash or default to main
+      show(location.hash || '#main');
+
+      // Respond to manual hash changes (e.g., back/forward)
+      window.addEventListener('hashchange', () => show(location.hash || '#main'));
+    })();
+  </script>
 </body>
 </html>
