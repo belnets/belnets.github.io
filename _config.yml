@@ -1,0 +1,3 @@
+plugins:
+  - jekyll-sitemap
+url: "https://belnets.github.io"
