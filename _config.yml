@@ -1,14 +1,1 @@
-plugins:
-  - jekyll-sitemap
-url: "https://belnets.github.io"
-
-title: "Belgium Research Network for Network Science"
-tagline: "Consortium of Network Research Groups"
-description: "Alliance of Belgian research teams advancing network science — members, events, and publications."
-url: "https://belnets.github.io"
-lang: "en"
-
-plugins:
-  - jekyll-sitemap
-  - jekyll-seo-tag
 
