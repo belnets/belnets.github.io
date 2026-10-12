@@ -1,1 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12th BELGIAN NETWORK RESEARCH MEETING</title>
+  
+  <style>
+    :root {
+      --primary-color: #333;
+      --secondary-color: #fff;
+      --bg-color: #f8f9fa;
+      --accent-bg: rgba(255, 255, 255, 0.2);
+      --overlay-dark: rgba(0, 0, 0, 0.3);
+      --accent: #0d6efd;
+    }
 
+    /* Reset Defaults */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--primary-color);
+      background: transparent;
+    }
+
+    /* Header with Background Image */
+    header {
+      position: relative;
+      background: url("./figs/fig3.webp") no-repeat center center/cover;
+      color: var(--secondary-color);
+      padding: 2.5rem 1rem;
+      text-align: center;
+    }
+
+/* Header overlay: stays visible but doesn't block clicks */
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-dark);
+  z-index: 1;
+  pointer-events: none;      /* ← allows clicking the tabs */
+}
+
+/* Tabs over the image/overlay — no bar background */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: transparent;   /* ← remove the grey bar */
+  flex-wrap: wrap;
+  position: relative;        /* ← create stacking context */
+  z-index: 2;                /* ← sit above header::before */
+}
+
+    header h1 {
+      position: relative;
+      z-index: 2;
+      font-size: 2rem;
+    }
+/* Schedule Table */
+.schedule-wrap { overflow-x: auto; }
+table.schedule {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+table.schedule colgroup col:nth-child(1) { width: 22%; }   /* Time */
+table.schedule colgroup col:nth-child(2) { width: 58%; }   /* Item */
+table.schedule colgroup col:nth-child(3) { width: 20%; }   /* Notes */
+
+table.schedule td {
+  padding: 0.85rem 1.2rem;           /* more overall padding */
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  text-align: left;
+}
+table.schedule td + td {              /* extra space between cols 1→2 and 2→3 */
+  padding-left: 1.8rem;
+}
+table.schedule tbody tr:hover { background: rgba(0,0,0,0.03); }
+
+table.schedule td.time {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;                   /* bold times */
+}
+table.schedule tr.session td {        /* bold SESSION rows */
+  font-weight: 700;
+}
+table.schedule td.notes { color: #555; }
+
+    nav a {
+      text-decoration: none;
+      color: var(--secondary-color);
+      font-weight: 600;
+      padding: 0.5rem 0.9rem;
+      border-radius: 10px;
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      background: transparent;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.05s ease;
+      outline-offset: 3px;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      border-color: #ffffff;
+      background: var(--accent-bg);
+    }
+
+    nav a.active {
+      background: var(--secondary-color);
+      color: var(--primary-color);
+      border-color: var(--secondary-color);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Content Styling */
+    .content-wrapper {
+      max-width: 90%;
+      width: 1000px; /* Adjusted for long text */
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--secondary-color);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2,
+    h3 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      margin-bottom: 1rem;
+      padding-left: 1.2rem;
+    }
+
+    /* Panels */
+    .tab-panel {
+      display: none;
+      animation: fade 180ms ease-in;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .content-wrapper {
+        padding: 1.5rem;
+      }
+    }
+
+    /* Visually-hidden utility for accessibility-only headings */
+    .sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 1px, 1px) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+  </style>
+  
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <h1>12th BELGIAN NETWORK RESEARCH MEETING</h1>
+  <!-- TABS NAVIGATION -->
+  <nav role="tablist" aria-label="BENet 2025 sections">
+    <a href="#main" role="tab" aria-controls="panel-main" aria-selected="true" class="active">Main</a>
+    <a href="#programme" role="tab" aria-controls="panel-programme" aria-selected="false">Programme</a>
+    <a href="#call" role="tab" aria-controls="panel-call" aria-selected="false">Call for Abstracts</a>
+    <a href="#registration" role="tab" aria-controls="panel-registration" aria-selected="false">Registration</a>
+    <a href="#location" role="tab" aria-controls="panel-location" aria-selected="false">Location</a>
+  </nav>
+  </header>
+
+
+  <!-- MAIN CONTENT WRAPPER -->
+  <div class="content-wrapper">
+    <!-- PANEL: MAIN -->
+    <section id="panel-main" class="tab-panel active" role="tabpanel" aria-labelledby="tab-main">
+      <h2>12th BELGIAN NETWORK RESEARCH MEETING</h2>
+
+      <p>
+        The 12th edition of the Belgian Network Research Meeting (BENet) will be organised by the Complex Systems Institute from Ghent University on December 11, 2026.
+        The purpose of this annual gathering is to foster communication among Belgian researchers employing network science on their work, regardless of their discipline: sociology, economics, communication, history, biology, physics, medicine, informatics, etc.
+      </p>
+
+      <h2>Important Dates</h2>
+      <br /><b><s>November 13, 2026:</s></b> Submission of abstracts
+      <br /><b><s>November 27, 2026:</s></b> Notification of acceptance
+      <br /><b><s>December 1, 2026:</s></b> Registration deadline
+      <br /><b>December 11, 2026:</b> Conference
+
+      <h2>Abstract Decisions</h2>
+      <p>
+        The decision on abstracts was sent today (November 27). If the corresponding author did not receive the email, contact the organiser.
+        <br> Remember to register before the deadline. Inform us if you decide not to participate anymore.
+        <br> Registrations are closed. Accepted participants should have received a confirmation email by the end of December 2, 2025.
+      </p>
+
+      <h2>Mailing List</h2>
+      <p>
+        To receive further information about this meeting and news about Belgian researchers working on networks, subscribe to this (low frequency) mailing list:
+        <br>Send a blank email to "listserv@lists.ugent.be" with the subject "subscribe benet YourFirstName YourFamilyName"
+      </p>
+
+      <h2>Previous Editions</h2>
+      <ul>
+        <li><a href="https://belnets.github.io/benet2025.html">UGent 2025</a> - Ghent</li>
+        <li><a href="https://www.naxys.be/benet/">UNamur 2021</a> - Namur</li>
+        <li><a href="https://csi.ugent.be/events/benet/">UGent 2020</a> - Ghent</li>
+        <li><a href="https://be-net.github.io/2019/">UHasselt 2019</a> - Hasselt</li>
+        <li><a href="https://be-net.github.io/2017/">UGent 2017</a> - Ghent</li>
+        <li><a href="https://be-net.github.io/2016/">UCLouvain 2016</a> - Louvain-la-Neuve</li>
+        <li><a href="https://tdn2013.wixsite.com/benet2015">UNamur 2015</a> - Namur</li>
+        <li>ULB 2014 - Brussels</li>
+        <li>IIS/KUL 2013 - Leuven</li>
+        <li>UAntwerpen 2012 - Antwerpen</li>
+        <li>VUB 2011 - Brussels</li>
+      </ul>
+
+      <br>Contact <a href="https://csi.ugent.be">Prof Luis Rocha</a> for more information.
+      <br>
+      
+      <h2>Organisers</h2>
+      <ul>
+        <li><strong>Luis Rocha</strong>, Complex Systems Institute, Ghent University, Belgium</li>
+        <li><strong>Daniele Marinazzo</strong>, Department of Data Analysis, Ghent University, Belgium</li>
+      </ul>
+      <p>
+        <li><strong>Practical support:</strong> Sandy Van Laer and Niels Van Santen</li>
+      </p>
+      <p>
+        The satellite is sponsored by the
+        <a href="https://www.fwo.be/en/">Research Foundation Flanders</a>, Belgium, via the
+        <a href="https://belnets.github.io">Belgium Research Network for Network Science (BENet)</a>.
+      </p>
+
+      <p><small>WebMaster: Luis Rocha. Updated: 12.10.2026</small></p>
+    </section>
+
+    <!-- PANEL: PROGRAMME -->
+<section id="panel-programme" class="tab-panel" role="tabpanel" aria-labelledby="tab-programme">
+  <h2>Programme</h2>
+<div class="schedule-wrap">
+  <table class="schedule" aria-describedby="programme-caption">
+    <caption id="programme-caption" class="sr-only">Programme schedule</caption>
+
+    <colgroup>
+      <col><col><col>
+    </colgroup>
+
+<tbody>
+  <tr style="background-color:#f5f5f5;">
+    <td class="time">09:00 – 09:10</td>
+    <td>Opening (Luis Rocha, UGent)</td>
+    <td class="notes"></td>
+  </tr>
+
+  <tr class="session" style="background-color:#e6f3ff;">
+    <td class="time">09:10 – 10:40</td>
+    <td>SESSION I</td>
+    <td class="notes">Chair: XX, XX</td>
+  </tr>
+  <tr style="background-color:#f5f5f5;">
+    <td class="time">10:40 – 11:10</td>
+    <td>Coffee break</td>
+    <td class="notes"></td>
+  </tr>
+
+  <tr class="session" style="background-color:#e6f3ff;">
+    <td class="time">11:10 – 12:40</td>
+    <td>SESSION II</td>
+    <td class="notes">Chair: XX, XX</td>
+  </tr>
+  <tr style="background-color:#f5f5f5;">
+    <td class="time">12:40 – 13:40</td>
+    <td>Lunch break + Posters</td>
+    <td class="notes"></td>
+  </tr>
+
+  <tr class="session" style="background-color:#e6f3ff;">
+    <td class="time">13:40 – 15:10</td>
+    <td>SESSION III</td>
+    <td class="notes">Chair: XX, XX</td>
+  </tr>
+
+  <tr style="background-color:#f5f5f5;">
+    <td class="time">15:10 – 15:40</td>
+    <td>Coffee break</td>
+    <td class="notes"></td>
+  </tr>
+
+  <tr class="session" style="background-color:#e6f3ff;">
+    <td class="time">15:40 – ~17:00</td>
+    <td>SESSION IV</td>
+    <td class="notes">Chair: XX, XX</td>
+  </tr>
+  <tr style="background-color:#f5f5f5;">
+    <td class="time">~17:00</td>
+    <td>Closing</td>
+    <td class="notes"></td>
+  </tr>
+  <tr style="background-color:#f5f5f5;">
+    <td class="time">17:30 – 19:00</td>
+    <td>XXX</td>
+    <td class="notes">at XX</td>
+  </tr>
+</tbody>
+
+  </table>
+</div>
+
+  <!-- your original commented block stays untouched below -->
+</section>
+
+      <!--
+      <ul>
+      09:00 - 09:10: Opening -
+      09:10 - 10:30: SESSION I - Chair:
+      09:10 - 09:30:
+      09:30 - 09:50:
+      09:50 - 10:10:
+      10:10 - 10:30:
+      10:30 - 11:00: Coffee break
+      11:00 - 12:20: SESSION II - Chair: Matteo Gagliolo
+      11:00 - 11:20:
+      11:20 - 11:40:
+      11:40 - 12:00:
+      12:00 - 12:20:
+      12:20 - 13:20: Lunch break + Posters
+      13:20 - 15:00: SESSION III - Chair:
+      13:20 - 14:20: KEYNOTE: TBC
+      14:20 - 14:40:
+      14:40 - 15:00:
+      15:00 - 15:30: Coffee break
+      15:30 - 17:00: SESSION IV - Chair:
+      15:30 - 15:50:
+      15:50 - 16:10:
+      16:10 - 16:30:
+      16:30 - 16:50:
+      16:50 - 17:00: Closing
+      17:00 - 19:00: Drinks *TBC
+      </ul>
+      -->
+    </section>
+
+    <!-- PANEL: CALL FOR ABSTRACTS -->
+    <section id="panel-call" class="tab-panel" role="tabpanel" aria-labelledby="tab-call">
+      <h2>Call for Abstracts</h2>
+      <p>
+        We welcome the submission of short research abstracts. Authors of selected contributions will be invited to present and discuss their work during the meeting.
+        Please take into account the interdisciplinary nature of this event: tutorial presentations will be favored over detailed reports. If you prefer a shorter (5 min) or longer (15 min) talk, specify your choice during the submission. We will try to accommodate all wishes.
+        <br/><br/>
+        Submit <a href="https://cmt3.research.microsoft.com/BENet2025">here</a> your title and abstract (text only, 180-200 words) by <b>November 13, 2026</b>.
+      </p>
+      <br />The scope of the meeting includes but is not restricted to:
+      <br />Social & organisational theory
+      <br />Economics & Finance
+      <br />Social media & online activities
+      <br />Human communication & mobility
+      <br />Information diffusion & opinion dynamics
+      <br />Political networks & collective action
+      <br />Ecology, ethology, food webs
+      <br />Biology & bioinformatics
+      <br />Epidemiology
+      <br />Physics, Mathematics & Statistics
+      <br />Modelling & Data Analysis
+      <br />Statistical networks & Bayesian networks
+      <br />Social network analysis
+      <br />Network visualisation
+      <br />Network criminology
+      <br />Networks and machine learning
+      <br />Networks and AI
+      <br />
+      <br />The book of abstracts with list of participants is available <a href="">here</a>.
+      <br><br>
+      The Microsoft CMT service was used for managing the peer-reviewing process for this conference. This service was provided for free by Microsoft and they bore all expenses, including costs for Azure cloud services as well as for software development and support.
+    </section>
+
+    <!-- PANEL: REGISTRATION -->
+    <section id="panel-registration" class="tab-panel" role="tabpanel" aria-labelledby="tab-registration">
+      <h2>Registration</h2>
+      <p>
+        Registration is free and mandatory <a href="https://forms.office.com/e/dHXDDwvnkL">here</a>. Register by <b>December 1, 2026.</b>
+      </p>
+      <h3 class="sr-only">Important Dates (duplicate for context)</h3>
+      <p class="sr-only">
+        <b>November 13, 2026:</b> Submission of abstracts | <b>November 27, 2026:</b> Notification of acceptance | <b>December 1, 2026:</b> Registration deadline | <b>December 11, 2026:</b> Conference
+      </p>
+    </section>
+
+    <!-- PANEL: LOCATION -->
+<section id="panel-location" class="tab-panel" role="tabpanel" aria-labelledby="tab-location">
+  <h2>Location</h2>
+  <p>
+    The annual meeting will take place at Avenue Jules Bordet 13, Evere (Brussels).
+    <a href="https://maps.app.goo.gl/5sPkpYK7yz3kxuiT9" target="_blank" rel="noopener">Open in Google Maps</a>
+  </p>
+
+  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d40281.885470495254!2d4.4164867!3d50.8752743!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3c52cdd67a90f%3A0xfcd9a96c13c60912!2stransforma%20-%20Coworking%20Space%20%26%20Meeting%20Rooms%20-%20Evere!5e0!3m2!1sen!2sbe!4v1791786698115!5m2!1sen!2sbe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+</section>
+
+  </div>
+
+  <script>
+    // Simple tab system with hash-based deep linking
+    (function () {
+      const nav = document.querySelector('nav[role="tablist"]');
+      const tabs = Array.from(nav.querySelectorAll('a[role="tab"]'));
+      const panels = Array.from(document.querySelectorAll('.tab-panel'));
+
+      function show(id) {
+        const hash = id.startsWith('#') ? id : `#${id}`;
+        // map hash -> panel id
+        const map = {
+          '#main': 'panel-main',
+          '#programme': 'panel-programme',
+          '#call': 'panel-call',
+          '#registration': 'panel-registration',
+          '#location': 'panel-location',
+        };
+        const panelId = map[hash] || 'panel-main';
+
+        // update active tab
+        tabs.forEach((t) => {
+          const isActive = t.getAttribute('href') === hash;
+          t.classList.toggle('active', isActive);
+          t.setAttribute('aria-selected', String(isActive));
+          t.setAttribute('tabindex', isActive ? '0' : '-1');
+        });
+
+        // update panels
+        panels.forEach((p) => p.classList.remove('active'));
+        const activePanel = document.getElementById(panelId);
+        if (activePanel) activePanel.classList.add('active');
+
+        // update hash without scrolling
+        if (location.hash !== hash) {
+          history.replaceState(null, '', hash);
+        }
+      }
+
+      // Click handling
+      nav.addEventListener('click', (e) => {
+        const a = e.target.closest('a[role="tab"]');
+        if (!a) return;
+        e.preventDefault();
+        show(a.getAttribute('href'));
+      });
+
+      // Keyboard support for tabs
+      nav.addEventListener('keydown', (e) => {
+        const current = document.activeElement;
+        const i = tabs.indexOf(current);
+        if (i === -1) return;
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          const next = tabs[(i + 1) % tabs.length];
+          next.focus();
+          show(next.getAttribute('href'));
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          const prev = tabs[(i - 1 + tabs.length) % tabs.length];
+          prev.focus();
+          show(prev.getAttribute('href'));
+        }
+      });
+
+      // Initialize from hash or default to main
+      show(location.hash || '#main');
+
+      // Respond to manual hash changes (e.g., back/forward)
+      window.addEventListener('hashchange', () => show(location.hash || '#main'));
+    })();
+  </script>
+</body>
+</html>
